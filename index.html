@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NR Ketic – Random Search Tool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+background:#0b0b0b;
+color:#fff;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+.box{
+background:#111;
+padding:25px;
+border-radius:12px;
+width:320px;
+text-align:center;
+box-shadow:0 0 15px #00ff99;
+}
+button{
+margin-top:15px;
+padding:10px 25px;
+font-size:16px;
+border:none;
+background:#00ff99;
+cursor:pointer;
+border-radius:6px;
+}
+small{color:#aaa;}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>NR Ketic</h2>
+<p id="progress">Progress: 0 / 15</p>
+<p id="timer">Ready to start</p>
+<button onclick="startSearch()">Start Search</button>
+<br><br>
+<small>Allow popup for best result</small>
+</div>
+
+<script>
+const keywords = [
+"latest tech news",
+"NR Ketic",
+"bing reward points trick",
+"best ai tools 2026",
+"how to earn online",
+"work from home india",
+"youtube shorts growth",
+"android tips and tricks",
+"best gaming phone",
+"free online courses",
+"digital marketing basics",
+"crypto market news",
+"best mobile under 15000",
+"how bing points work",
+"ai tools for students"
+];
+
+let used = [];
+let count = 0;
+let interval;
+
+function startSearch(){
+if(interval) return;
+
+interval = setInterval(()=>{
+if(count >= keywords.length){
+clearInterval(interval);
+document.getElementById("timer").innerText="All searches completed ✅";
+return;
+}
+
+let random;
+do{
+random = Math.floor(Math.random()*keywords.length);
+}while(used.includes(random));
+
+used.push(random);
+
+let query = encodeURIComponent(keywords[random]);
+window.open("https://www.bing.com/search?q="+query,"_blank");
+
+count++;
+document.getElementById("progress").innerText =
+`Progress: ${count} / ${keywords.length}`;
+document.getElementById("timer").innerText =
+"Next search in 15 seconds";
+
+},15000);
+}
+</script>
+
+</body>
+</html>
